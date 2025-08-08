@@ -133,12 +133,11 @@
 <h1>AURA FARMER</h1>
 
 <div class="container">
-  <label for="fileInput" title="Upload a picture">Upload Your Aura</label>
+  <label for="fileInput" title="Upload a picture">CLICK HERE, YOU FINE SHYT</label>
   <input type="file" id="fileInput" accept="image/*" />
   <button onclick="useCamera()">📸 Use Webcam</button>
 
-
-<video id="video" autoplay playsinline style="display:none;"></video>
+  <video id="video" autoplay playsinline style="display:none;"></video>
   <canvas id="canvas" style="display:none;"></canvas>
   <button id="captureBtn" style="display:none;" onclick="capture()">Capture</button>
   <img id="displayImage" style="display:none;" alt="Aura Image" />
@@ -239,7 +238,7 @@
       auraTagline = "YOU'RE OFFICIALLY IN THE HALL OF FAME AURA FARMER!";
     }
 
-    result.textContent = Your Aurais${auraNumber} - ${auraDescription};
+    result.textContent = `Your Aura is ${auraNumber} - ${auraDescription}`;
     tagline.textContent = auraTagline;
     tagline.style.fontSize = smallerFont ? '20px' : '28px';
   }
