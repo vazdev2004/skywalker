@@ -17,7 +17,8 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    /* Removed overflow:hidden to allow scrolling */
+    overflow-y: auto;
   }
 
   /* Create white dots randomly scattered */
@@ -45,8 +46,8 @@
     font-size: 4rem;
     font-weight: 900;
     background: linear-gradient(90deg, #ff416c, #ff4b2b);
-    background-clip: text;          /* standard property */
-    -webkit-background-clip: text;  /* webkit fallback */
+    background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 30px;
     text-transform: uppercase;
@@ -60,17 +61,17 @@
     padding: 30px 25px;
     border-radius: 15px;
     width: 360px;
+    max-height: 80vh;      /* Limit container height */
+    overflow-y: auto;      /* Scroll inside container if needed */
     box-shadow: 0 0 20px rgba(255, 75, 43, 0.6);
     position: relative;
     z-index: 1;
   }
 
-  /* Hide the default file input */
   input[type="file"] {
     display: none;
   }
 
-  /* Custom file upload button */
   label[for="fileInput"] {
     display: inline-block;
     background: linear-gradient(45deg, #ff416c, #ff4b2b);
@@ -113,8 +114,8 @@
     font-size: 28px;
     font-weight: 900;
     background: linear-gradient(45deg, #ff416c, #ff4b2b);
-    background-clip: text;          /* standard property */
-    -webkit-background-clip: text;  /* webkit fallback */
+    background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: pulse 2s infinite;
     letter-spacing: 1.2px;
@@ -200,3 +201,4 @@
 
 </body>
 </html>
+
