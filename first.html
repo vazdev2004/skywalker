@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Photo Aura Number Generator</title>
+  <style>
+    body{font-family:Arial, sans-serif; background:#0f172a; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; margin:0;}
+    .container{background:#1e293b; padding:20px; border-radius:10px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.5);}
+    input{margin-top:10px;}
+    img{max-width:300px; margin-top:20px; border-radius:10px;}
+    .result{margin-top:20px; font-size:20px; font-weight:bold;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Upload a Photo to Generate Aura</h1>
+    <input type="file" id="fileInput" accept="image/*">
+    <div>
+      <img id="uploadedImage" src="" alt="Uploaded Image" style="display:none;">
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadedImage = document.getElementById('uploadedImage');
+    const result = document.getElementById('result');
+
+    fileInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImage.src = e.target.result;
+          uploadedImage.style.display = 'block';
+          generateAura();
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function generateAura(){
+      const auraNumber = Math.floor(Math.random() * (9999 - 100 + 1)) + 100;
+      let auraDescription = "";
+
+      if(auraNumber >= 100 && auraNumber <= 500) auraDescription = "Normal aura";
+      else if(auraNumber <= 1000) auraDescription = "Sigma";
+      else if(auraNumber <= 2000) auraDescription = "Aura point cooker";
+      else if(auraNumber <= 3000) auraDescription = "Aura gainer";
+      else if(auraNumber <= 5000) auraDescription = "Master aura gainer";
+      else if(auraNumber <= 6000) auraDescription = "Grander aura gainer";
+      else if(auraNumber <= 7000) auraDescription = "Mega aura gainer";
+      else if(auraNumber <= 8000) auraDescription = "Aura farmer";
+      else if(auraNumber <= 9000) auraDescription = "Master aura farmer";
+      else auraDescription = "Grandmaster aura farmer";
+
+      result.textContent = `Aura Number: ${auraNumber} - ${auraDescription}`;
+    }
+  </script>
+</body>
+</html>
