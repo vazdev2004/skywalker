@@ -1,83 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Photo Aura Number Generator</title>
+  <meta charset="UTF-8">
+  <title>Aura Number Generator</title>
   <style>
-    body{font-family:Arial, sans-serif; background:#0f172a; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; margin:0;}
-    .container{background:#1e293b; padding:20px; border-radius:10px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.5); max-width:400px;}
-    input{margin-top:10px;}
-    img{max-width:300px; margin-top:20px; border-radius:10px;}
-    .result{margin-top:20px; font-size:20px; font-weight:bold;}
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+    .container {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    img {
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Upload a Photo to Generate Aura</h1>
     <input type="file" id="fileInput" accept="image/*">
-    <div>
-      <img id="uploadedImage" src="" alt="Uploaded Image" style="display:none;">
-    </div>
+    <img id="uploadedImage" style="display:none;" alt="Uploaded image for aura scan">
     <div class="result" id="result"></div>
   </div>
+
   <script>
     const fileInput = document.getElementById('fileInput');
     const uploadedImage = document.getElementById('uploadedImage');
     const result = document.getElementById('result');
 
-    fileInput.addEventListener('change', async function() {
-      const file = this.files[0];
-      if(file){
-        const reader = new FileReader();
-        reader.onload = async function(e) {
-          uploadedImage.src = e.target.result;
-          uploadedImage.style.display = 'block';
-          const faceDetected = await detectFace(e.target.result);
-          if(faceDetected){
-            generateAura();
-          } else {
-            result.textContent = "No face detected — aura number not generated.";
-          }
-        }
-        reader.readAsDataURL(file);
-      }
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        uploadedImage.src = e.target.result;
+        uploadedImage.style.display = 'block';
+
+        uploadedImage.onload = () => detectFace(uploadedImage);
+      };
+      reader.readAsDataURL(file);
     });
 
-    async function detectFace(imageSrc){
-      return new Promise(resolve => {
-        const img = new Image();
-        img.src = imageSrc;
-        img.onload = async () => {
-          try {
-            const faceDetector = new FaceDetector({ fastMode: true });
-            const faces = await faceDetector.detect(img);
-            resolve(faces.length > 0);
-          } catch (err) {
-            console.warn("Face detection not supported in this browser.", err);
-            resolve(true); // fallback: always true if unsupported
+    async function detectFace(image) {
+      if ('FaceDetector' in window) {
+        const detector = new FaceDetector({ fastMode: true });
+        try {
+          const faces = await detector.detect(image);
+          if (faces.length > 0) {
+            generateAura();
+          } else {
+            result.textContent = "No face detected. Please upload a clear face photo.";
           }
+        } catch (err) {
+          result.textContent = "Face detection failed: " + err.message;
         }
-      });
+      } else {
+        result.textContent = "Face detection not supported in this browser.";
+      }
     }
 
-    function generateAura(){
+    function generateAura() {
       const auraNumber = Math.floor(Math.random() * (9999 - 100 + 1)) + 100;
       let auraDescription = "";
 
-      if(auraNumber >= 100 && auraNumber <= 500) auraDescription = "Normal aura";
-      else if(auraNumber <= 1000) auraDescription = "Sigma";
-      else if(auraNumber <= 2000) auraDescription = "Aura point cooker";
-      else if(auraNumber <= 3000) auraDescription = "Aura gainer";
-      else if(auraNumber <= 5000) auraDescription = "Master aura gainer";
-      else if(auraNumber <= 6000) auraDescription = "Grander aura gainer";
-      else if(auraNumber <= 7000) auraDescription = "Mega aura gainer";
-      else if(auraNumber <= 8000) auraDescription = "Aura farmer";
-      else if(auraNumber <= 9000) auraDescription = "Master aura farmer";
+      if (auraNumber <= 500) auraDescription = "Normal aura";
+      else if (auraNumber <= 1000) auraDescription = "Sigma";
+      else if (auraNumber <= 2000) auraDescription = "Aura point cooker";
+      else if (auraNumber <= 3000) auraDescription = "Aura gainer";
+      else if (auraNumber <= 5000) auraDescription = "Master aura gainer";
+      else if (auraNumber <= 6000) auraDescription = "Grander aura gainer";
+      else if (auraNumber <= 7000) auraDescription = "Mega aura gainer";
+      else if (auraNumber <= 8000) auraDescription = "Aura farmer";
+      else if (auraNumber <= 9000) auraDescription = "Master aura farmer";
       else auraDescription = "Grandmaster aura farmer";
 
-      result.textContent = `Aura Number: ${auraNumber} - ${auraDescription}`;
+     
     }
   </script>
 </body>
 </html>
+
+    
