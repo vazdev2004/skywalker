@@ -6,7 +6,7 @@
   <title>Photo Aura Number Generator</title>
   <style>
     body{font-family:Arial, sans-serif; background:#0f172a; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; margin:0;}
-    .container{background:#1e293b; padding:20px; border-radius:10px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.5);}
+    .container{background:#1e293b; padding:20px; border-radius:10px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.5); max-width:400px;}
     input{margin-top:10px;}
     img{max-width:300px; margin-top:20px; border-radius:10px;}
     .result{margin-top:20px; font-size:20px; font-weight:bold;}
@@ -26,18 +26,40 @@
     const uploadedImage = document.getElementById('uploadedImage');
     const result = document.getElementById('result');
 
-    fileInput.addEventListener('change', function() {
+    fileInput.addEventListener('change', async function() {
       const file = this.files[0];
       if(file){
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = async function(e) {
           uploadedImage.src = e.target.result;
           uploadedImage.style.display = 'block';
-          generateAura();
+          const faceDetected = await detectFace(e.target.result);
+          if(faceDetected){
+            generateAura();
+          } else {
+            result.textContent = "No face detected — aura number not generated.";
+          }
         }
         reader.readAsDataURL(file);
       }
     });
+
+    async function detectFace(imageSrc){
+      return new Promise(resolve => {
+        const img = new Image();
+        img.src = imageSrc;
+        img.onload = async () => {
+          try {
+            const faceDetector = new FaceDetector({ fastMode: true });
+            const faces = await faceDetector.detect(img);
+            resolve(faces.length > 0);
+          } catch (err) {
+            console.warn("Face detection not supported in this browser.", err);
+            resolve(true); // fallback: always true if unsupported
+          }
+        }
+      });
+    }
 
     function generateAura(){
       const auraNumber = Math.floor(Math.random() * (9999 - 100 + 1)) + 100;
