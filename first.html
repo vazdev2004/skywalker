@@ -1,157 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AURA FARMER - Aura Number Generator</title>
-<style>
-  /* Black and purple gradient background with white dots */
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a002a, #2e0057, #0a002a);
-    color: #eee;
-    text-align: center;
-    padding: 50px 20px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    overflow-y: auto;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AURA FARMER - Ultimate Aura Number Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a002a, #2e0057, #0a002a);
+      color: #eee;
+      text-align: center;
+      padding: 50px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-y: auto;
+    }
 
-  /* White dots overlay */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background:
-      radial-gradient(2px 2px at 10% 20%, white, transparent),
-      radial-gradient(1.5px 1.5px at 25% 40%, white, transparent),
-      radial-gradient(2.5px 2.5px at 40% 70%, white, transparent),
-      radial-gradient(1.2px 1.2px at 55% 30%, white, transparent),
-      radial-gradient(1.8px 1.8px at 70% 50%, white, transparent),
-      radial-gradient(2px 2px at 85% 80%, white, transparent),
-      radial-gradient(1.3px 1.3px at 90% 10%, white, transparent);
-    background-repeat: repeat;
-    background-size: 100% 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background:
+        radial-gradient(2px 2px at 10% 20%, white, transparent),
+        radial-gradient(1.5px 1.5px at 25% 40%, white, transparent),
+        radial-gradient(2.5px 2.5px at 40% 70%, white, transparent),
+        radial-gradient(1.2px 1.2px at 55% 30%, white, transparent),
+        radial-gradient(1.8px 1.8px at 70% 50%, white, transparent),
+        radial-gradient(2px 2px at 85% 80%, white, transparent),
+        radial-gradient(1.3px 1.3px at 90% 10%, white, transparent);
+      background-repeat: repeat;
+      background-size: 100% 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  /* Funny heading font (Comic Sans MS) */
-  h1 {
-    font-family: "Comic Sans MS", cursive, sans-serif;
-    font-size: 4rem;
-    font-weight: 900;
-    background: linear-gradient(90deg, #ff416c, #ff4b2b);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    position: relative;
-    z-index: 1;
-    padding: 0 15px;
-    border: 4px solid white;
-    border-radius: 15px;
-    display: inline-block;
+    h1 {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      padding: 0 15px;
+      border: 4px solid white;
+      border-radius: 15px;
+      box-shadow: 0 0 8px 2px white, 0 0 20px 5px rgba(255, 255, 255, 0.6);
+      z-index: 1;
+    }
 
-    /* Glowing white border */
-    box-shadow:
-      0 0 8px 2px white,
-      0 0 20px 5px rgba(255, 255, 255, 0.6);
-  }
+    .container {
+      background: #121212cc;
+      padding: 30px 25px;
+      border-radius: 15px;
+      width: 360px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 0 20px rgba(255, 75, 43, 0.6);
+      position: relative;
+      z-index: 1;
+    }
 
-  .container {
-    background: #121212cc;
-    padding: 30px 25px;
-    border-radius: 15px;
-    width: 360px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 0 20px rgba(255, 75, 43, 0.6);
-    position: relative;
-    z-index: 1;
-  }
+    input[type="file"] {
+      display: none;
+    }
 
-  input[type="file"] {
-    display: none;
-  }
+    label[for="fileInput"], button {
+      display: inline-block;
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: white;
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 75, 43, 0.6);
+      user-select: none;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      margin: 10px;
+      border: none;
+    }
 
-  label[for="fileInput"] {
-    display: inline-block;
-    background: linear-gradient(45deg, #ff416c, #ff4b2b);
-    color: white;
-    padding: 12px 25px;
-    font-weight: 700;
-    font-size: 18px;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255, 75, 43, 0.6);
-    user-select: none;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-  }
+    label:hover, button:hover {
+      transform: scale(1.05) rotate(-3deg);
+      box-shadow: 0 8px 20px rgba(255, 75, 43, 0.9);
+    }
 
-  label[for="fileInput"]:hover {
-    transform: scale(1.05) rotate(-3deg);
-    box-shadow: 0 8px 20px rgba(255, 75, 43, 0.9);
-  }
+    label:active, button:active {
+      transform: scale(0.95) rotate(2deg);
+    }
 
-  label[for="fileInput"]:active {
-    transform: scale(0.95) rotate(2deg);
-  }
+    img, video {
+      margin-top: 20px;
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #ff4b2baa;
+    }
 
-  img {
-    margin-top: 20px;
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #ff4b2baa;
-  }
+    .result {
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #ff4b2b;
+    }
 
-  .result {
-    margin-top: 30px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #ff4b2b;
-  }
+    .tagline {
+      margin-top: 15px;
+      font-weight: 900;
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
+      letter-spacing: 1.2px;
+    }
 
-  .tagline {
-    margin-top: 15px;
-    font-weight: 900;
-    background: linear-gradient(45deg, #ff416c, #ff4b2b);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: pulse 2s infinite;
-    letter-spacing: 1.2px;
-  }
-
-  @keyframes pulse {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.4); }
-  }
-</style>
+    @keyframes pulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.4); }
+    }
+  </style>
 </head>
 <body>
 
 <h1>AURA FARMER</h1>
+
 <div class="container">
-  <label for="fileInput" title="Click me!">CLICK HERE, YOU FINE SHYT</label>
+  <label for="fileInput" title="Upload a picture">Upload Your Aura</label>
   <input type="file" id="fileInput" accept="image/*" />
-  <img id="uploadedImage" style="display:none;" alt="Uploaded Image" />
+  <button onclick="useCamera()">📸 Use Webcam</button>
+  <video id="video" autoplay playsinline style="display:none;"></video>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <button id="captureBtn" style="display:none;" onclick="capture()">Capture</button>
+  <img id="displayImage" style="display:none;" alt="Aura Image" />
   <div class="result" id="result"></div>
   <div class="tagline" id="tagline"></div>
 </div>
 
 <script>
   const fileInput = document.getElementById('fileInput');
-  const uploadedImage = document.getElementById('uploadedImage');
+  const displayImage = document.getElementById('displayImage');
   const result = document.getElementById('result');
   const tagline = document.getElementById('tagline');
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const captureBtn = document.getElementById('captureBtn');
 
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
@@ -159,18 +159,50 @@
 
     const reader = new FileReader();
     reader.onload = e => {
-      uploadedImage.src = e.target.result;
-      uploadedImage.style.display = 'block';
+      displayImage.src = e.target.result;
+      displayImage.style.display = 'block';
+      video.style.display = 'none';
+      captureBtn.style.display = 'none';
       generateAura();
     };
     reader.readAsDataURL(file);
   });
 
+  function useCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+        video.style.display = 'block';
+        captureBtn.style.display = 'inline-block';
+        displayImage.style.display = 'none';
+        result.textContent = '';
+        tagline.textContent = '';
+      })
+      .catch(err => {
+        alert("Camera access denied or unavailable.");
+        console.error(err);
+      });
+  }
+
+  function capture() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0);
+    const imageData = canvas.toDataURL('image/png');
+    displayImage.src = imageData;
+    displayImage.style.display = 'block';
+    video.style.display = 'none';
+    captureBtn.style.display = 'none';
+    video.srcObject.getTracks().forEach(track => track.stop());
+    generateAura();
+  }
+
   function generateAura() {
     const auraNumber = Math.floor(Math.random() * (9999 - 100 + 1)) + 100;
     let auraDescription = "";
     let auraTagline = "";
-    let smallerTaglineFont = false;
+    let smallerFont = false;
 
     if (auraNumber <= 500) {
       auraDescription = "Normal aura";
@@ -196,7 +228,7 @@
     } else if (auraNumber <= 8000) {
       auraDescription = "Aura farmer";
       auraTagline = "That is Supercalifragilisticexpialidocious!";
-      smallerTaglineFont = true;
+      smallerFont = true;
     } else if (auraNumber <= 9000) {
       auraDescription = "Master aura farmer";
       auraTagline = "DAAMN BRU THAT'S SICK AF!";
@@ -207,12 +239,13 @@
 
     result.textContent = `Your Aura is ${auraNumber} - ${auraDescription}`;
     tagline.textContent = auraTagline;
-    tagline.style.fontSize = smallerTaglineFont ? '20px' : '28px';
+    tagline.style.fontSize = smallerFont ? '20px' : '28px';
   }
 </script>
 
 </body>
 </html>
+
 
 
 
